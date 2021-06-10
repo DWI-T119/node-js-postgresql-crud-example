@@ -34,15 +34,18 @@ exports.create = (req, res) => {
 
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-  console.log("Find all")
   const title = req.query.title;
   var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
-
+  
+  console.log("Find all")
   Tutorial.findAll({ where: condition })
     .then(data => {
+      console.log("Success")
       res.send(data);
     })
     .catch(err => {
+      console.log("Error")
+      console.log(err)
       console.log(err.message)
       res.status(500).send({
         message:
